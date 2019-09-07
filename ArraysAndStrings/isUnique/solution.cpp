@@ -2,6 +2,7 @@
 #include<iostream>
 #include<algorithm>
 #include<unordered_map>
+#include<bitset>
 
 /*
 * Note: for this problem, our BCR(Best Conceivable Time) is O(N) since we have to traverse every value
@@ -102,6 +103,47 @@ bool HashMapSolution::isUnique(){
 }
 
 void HashMapSolution::solve()
+{
+    if(isUnique())
+    {
+        std::cout<<"Yes\n";
+    }
+    else
+    {
+        std::cout<<"No\n";
+    }
+    
+}
+
+
+BitSetSolution::BitSetSolution(std::string& s)
+{
+    input = s;
+}
+
+/*
+* Time Complexity : O(N)
+* Space Complexity: O(N) // will be 8 times less than the UnOrdered Map Solution
+* BUT, We've to assume that only lowercase letters will be there,
+* since for using bitset, we have to know the number of bits we need to assign,
+* and our assumption will help us to assign 26 bits.
+*/
+
+bool BitSetSolution::isUnique(){
+    std::bitset<26> bSet;
+    for(int i=0;i<input.size();i++)
+    {
+        int iBit = (int)(input[i])-(int)('a');
+        if(bSet.test(iBit))
+        {
+            return false;
+        }
+        bSet.set(iBit);
+    }
+    return true;
+}
+
+void BitSetSolution::solve()
 {
     if(isUnique())
     {

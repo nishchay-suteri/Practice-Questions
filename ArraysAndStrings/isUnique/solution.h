@@ -53,4 +53,13 @@ class HashMapSolution: public Solution{
         HashMapSolution(std::string& s);
         void solve();
 };
+
+class BitSetSolution: public Solution{
+    private:
+        bool isUnique();
+    public:
+        BitSetSolution(std::string& s);
+        void solve();
+};
+
 #endif

@@ -21,6 +21,10 @@ int main()
         solution = new HashMapSolution(input);
         solution->solve();
         delete solution;
+        std::cout<<"BitSet solution:-\n";
+        solution = new BitSetSolution(input);
+        solution->solve();
+        delete solution;
     }
     return 0;
 }
