@@ -45,4 +45,12 @@ class SortSolution: public Solution{
         void solve();
 };
 
+
+class HashMapSolution: public Solution{
+    private:
+        bool isUnique();
+    public:
+        HashMapSolution(std::string& s);
+        void solve();
+};
 #endif

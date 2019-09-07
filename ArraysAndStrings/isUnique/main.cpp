@@ -17,7 +17,10 @@ int main()
         solution = new SortSolution(input);
         solution->solve();
         delete solution;
-
+        std::cout<<"HashMap solution:-\n";
+        solution = new HashMapSolution(input);
+        solution->solve();
+        delete solution;
     }
     return 0;
 }
