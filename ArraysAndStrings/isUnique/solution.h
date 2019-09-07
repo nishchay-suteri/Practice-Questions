@@ -37,4 +37,12 @@ class BruteForceSolution: public Solution{
         void solve();
 };
 
+class SortSolution: public Solution{
+    private:
+        bool isUnique();
+    public:
+        SortSolution(std::string& s);
+        void solve();
+};
+
 #endif
