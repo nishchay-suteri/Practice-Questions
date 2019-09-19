@@ -2,6 +2,7 @@
 #define LINKEDLIST_H
 
 #include<iostream>
+#include<assert.h>
 
 template<typename T>
 class ListNode{
@@ -138,9 +139,10 @@ class DoublyLinkedList:public LinkedList<T>{
     private:
         DoublyListNode<T>* head;
         DoublyListNode<T>* tail;
+
         DoublyListNode<T>* get_mid(DoublyListNode<T>* node){
             DoublyListNode<T>* slowPtr = node;
-            DoublyListNode<T>* fastPtr = node;
+            DoublyListNode<T>* fastPtr = node->get_next();// since for 2 nodes, we should return fitrst node
             while (fastPtr && fastPtr->get_next())
             {
                 slowPtr = slowPtr->get_next();
@@ -148,9 +150,7 @@ class DoublyLinkedList:public LinkedList<T>{
             }
             return slowPtr;
         }
-        /*
-        NOTE: ONLY FORWARD  POINTERS ARE SET FOR THIS MERGE()
-        */
+
         DoublyListNode<T>* merge(DoublyListNode<T>* node1,DoublyListNode<T>* node2)
         {
             if(node1 == NULL)
@@ -166,11 +166,13 @@ class DoublyLinkedList:public LinkedList<T>{
             {
                 result = node1;
                 result->set_next(merge(node1->get_next(),node2));
+                result->get_next()->set_prev(result);
             }
             else
             {
                 result = node2;
                 result->set_next(merge(node1,node2->get_next()));
+                result->get_next()->set_prev(result);
             }
             return result;
         }
@@ -260,23 +262,32 @@ class DoublyLinkedList:public LinkedList<T>{
         {
             this->head = n;
         }
-        /*
-        NODE: ONLY FORWARD POINTERS ARE SET
-        */
-        // DoublyListNode<T>* sort(DoublyListNode<T>* node)
-        // {
-        //     if(node == NULL || node->get_next() == NULL)
-        //     {
-        //         return node;
-        //     }
-        //     DoublyListNode<T>* middle = get_mid(node);
-        //     DoublyListNode<T>* secondListHead = middle->get_next();
-        //     middle->set_next(NULL);
-        //     node = sort(node);
-        //     secondListHead = sort(secondListHead);
-        //     DoublyListNode<T>* finalHead = merge(node,secondListHead);
-        //     return finalHead;
-        // }
+
+        DoublyListNode<T>* sort(DoublyListNode<T>* node)
+        {
+            if(node == NULL || node->get_next() == NULL)
+            {
+                return node;
+            }
+            DoublyListNode<T>* middle = get_mid(node);
+            DoublyListNode<T>* secondListHead = middle->get_next();
+            middle->get_next()->set_prev(NULL);
+            middle->set_next(NULL);
+            node = sort(node);
+            secondListHead = sort(secondListHead);
+            DoublyListNode<T>* finalHead = merge(node,secondListHead);
+            return finalHead;
+        }
+        void update_tail()
+        {
+            assert(this->head!=NULL);
+            DoublyListNode<T>* itr = this->head;
+            while(itr->get_next())
+            {
+                itr = itr->get_next();
+            }
+            this->tail = itr;
+        }
         
 
         void display(){

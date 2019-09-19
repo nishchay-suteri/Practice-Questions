@@ -20,6 +20,8 @@
 */
 #include "linkedList.h"
 #include<unordered_map>
+#include<bitset>
+#define MAX_ELEMENT (1000)
 
 class Solution{
     protected:
@@ -53,6 +55,16 @@ class HashMapSolution: public Solution{
         void removeDups();
     public:
         HashMapSolution();
+        void solve(int n);
+};
+
+
+class BitSetSolution: public Solution{
+    private:
+        std::bitset<MAX_ELEMENT> bSet;
+        void removeDups();
+    public:
+        BitSetSolution();
         void solve(int n);
 };
 
