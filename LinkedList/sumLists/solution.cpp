@@ -46,6 +46,7 @@ SinglyLinkedList<int>* OptimalSolution::sum_lists()
     int size1 = list1.get_size();
     int size2 = list2.get_size();
     int numOfZeros = 0;
+    int zeroValue = 0;// to make sure push_front() goes to T&d constructor, not in Node* constructor
     if(size1>size2)
     {
         numOfZeros = size1-size2;
@@ -58,11 +59,11 @@ SinglyLinkedList<int>* OptimalSolution::sum_lists()
     {
         if(size1>size2)
         {
-            list2.push_front(0);
+            list2.push_front(zeroValue);
         }
         else
         {
-            list1.push_front(0);
+            list1.push_front(zeroValue);
         }
     }
     SinglyLinkedList<int>* newList = sum_lists_helper(list1.get_head(),list2.get_head(), carry);

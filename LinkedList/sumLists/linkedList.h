@@ -120,20 +120,20 @@ class SinglyLinkedList:public LinkedList<T>{
             }
             size++;
         }
-        // void push_front(SinglyListNode<T>* node)
-        // {
-        //     if(this->head == NULL){
-        //         this->head = node;
-        //         this->tail = node;
-        //     }
-        //     else
-        //     {
-        //         node->set_next(head);
-        //         head = node;
-        //     }
-        //     size++;
-        // }
-        void push_front(T d)
+        void push_front(SinglyListNode<T>* node)
+        {
+            if(this->head == NULL){
+                this->head = node;
+                this->tail = node;
+            }
+            else
+            {
+                node->set_next(head);
+                head = node;
+            }
+            size++;
+        }
+        void push_front(T& d)
         {
             SinglyListNode<T>* node = new SinglyListNode<T>(d);
             if(this->head == NULL){
