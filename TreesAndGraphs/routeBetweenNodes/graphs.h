@@ -52,9 +52,10 @@ public:
 template<typename T>
 class ListGraph:public Graph<T>
 {
-private:
+protected:
     std::map<T,std::vector<T> > adjList;
     std::map<T,bool> vis;
+private:
     GraphType graphType;
     void dfs(T& src)
     {

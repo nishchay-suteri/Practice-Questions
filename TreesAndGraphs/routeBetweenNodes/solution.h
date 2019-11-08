@@ -19,7 +19,6 @@
 * Another  thing, We can't access the private members of base class(even derived class can't access)
 */
 #include "graphs.h"
-#define INVALID_VALUE (-1)
 
 class Solution{
     public:
@@ -32,16 +31,41 @@ class MyGraph:public ListGraph<T>
     private:
         bool isPathExistHelper(T& src,T& dest)
         {
-
+            Queue<T> q;
+            this->vis.clear();
+            q.add(src);
+            this->vis[src] = true;
+            while(!q.isEmpty())
+            {
+                T vertex = q.remove();
+                if(vertex == dest)
+                {
+                    return true;
+                }
+                std::vector<T>& neighbours = this->adjList[vertex];
+                for(int i=0;i<neighbours.size();i++)
+                {
+                    if(this->vis.find(neighbours[i]) == this->vis.end())
+                    {
+                        q.add(neighbours[i]);
+                        this->vis[neighbours[i]] = true;
+                    }
+                }
+            }
+            return false;
         }
     public:
         bool isPathExist(T node1,T node2)
         {
-
+            // if(isPathExistHelper(node1,node2) || isPathExistHelper(node2,node1))
+            if(isPathExistHelper(node1,node2))
+            {
+                return true;
+            }
+            return false;
         }
         MyGraph(GraphType t):
-        ListGraph<T>(t),
-        Graph<T>(LIST)
+        ListGraph<T>(t)
         {
             
         }
@@ -49,6 +73,8 @@ class MyGraph:public ListGraph<T>
 
 class OptimalSolution: public Solution{
     private:
+        MyGraph<int>* graph;
+        bool verify();
     public:
         OptimalSolution();
         ~OptimalSolution();

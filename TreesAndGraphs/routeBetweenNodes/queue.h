@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include<iostream>
-
+#include<assert.h>
 template<typename T>
 class QueueNodeBase{
     private:
