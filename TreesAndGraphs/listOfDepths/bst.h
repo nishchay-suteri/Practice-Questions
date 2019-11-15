@@ -9,6 +9,7 @@
 #include<list>
 #include<queue>
 #define MAX_DEPTH (100)
+#define DEBUG (0)
 
 template<typename T>
 class TreeNode{
@@ -117,10 +118,14 @@ class BinarySearchTree:public Tree<T>{
             typename std::list<TreeNode<T>* >::iterator itrDfs = dfs.begin();
             while(itrBfs!=bfs.end())
             {
-
+                if((*itrBfs)!=(*itrDfs))
+                {
+                    return false;
+                }
                 itrBfs++;
                 itrDfs++;
             }
+            return true;
         }
         void _inorder(TreeNode<T>* node)
         {
@@ -341,7 +346,47 @@ class BinarySearchTree:public Tree<T>{
                 }
             }
         }
+        void display_bfs(){
+            for(int i=0;i<MAX_DEPTH;i++)
+            {
+                if(bfsList[i].size() != 0)
+                {
+                    std::cout<<"Depth: "<<i<<"\n";
+                    std::list<TreeNode<T>* >& bfs = bfsList[i];
+                    typename std::list<TreeNode<T>* >::iterator itrBfs = bfs.begin();
+                    while(itrBfs!=bfs.end())
+                    {
+                        std::cout<<(*itrBfs)->get_data()<<" ";
+                        itrBfs++;
+                    }
+                    std::cout<<"\n";
+                }
+            }
+        }
+        void display_dfs(){
+            for(int i=0;i<MAX_DEPTH;i++)
+            {
+                if(dfsList[i].size() != 0)
+                {
+                    std::cout<<"Depth: "<<i<<"\n";
+                    std::list<TreeNode<T>* >& dfs = dfsList[i];
+                    typename std::list<TreeNode<T>* >::iterator itrDfs = dfs.begin();
+                    while(itrDfs!=dfs.end())
+                    {
+                        std::cout<<(*itrDfs)->get_data()<<" ";
+                        itrDfs++;
+                    }
+                    std::cout<<"\n";
+                }
+            }
+        }
         bool verify(){
+#if DEBUG
+            std::cout<<"BFS:-\n";
+            display_bfs();
+            std::cout<<"DFS:-\n";
+            display_dfs();
+#endif
             for(int i=0;i<MAX_DEPTH;i++)
             {
                 if(bfsList[i].size() != dfsList[i].size())
